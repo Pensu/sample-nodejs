@@ -1,11 +1,13 @@
-const express = require('express')
-const app = express()
+var http = require('http');
+var fs = require('fs');
+const { response } = require('express');
 
-app.get('/', (req, res) => {
-  res.send('Hello, DO!')
-})
+http.createServer(function(request, response) {
+  fs.readFile("index.html", function (err, data) {
+    response.writeHead(200, {'Content-Type': 'text/html'});
+    response.write(data);
+    response.end();
+  });
+}).listen(3000);
 
-app.listen(3000, () => {
-  console.log('Server is up on 3000')
-})
 
